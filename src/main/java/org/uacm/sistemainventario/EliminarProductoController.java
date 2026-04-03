@@ -52,11 +52,14 @@ public class EliminarProductoController implements Initializable {
         tvColNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
         tvColPrecio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
         
+        //Agregamos un producto de prueba
         Producto p1 = new Producto("Chokis", 24.5);
         Producto p2 = new Producto("Coca-Cola", 35.5);
+        Producto p3 = new Producto("Jabon", 25.5);
         
         listaProductos.add(p1);
         listaProductos.add(p2);
+        listaProductos.add(p3);
         
         tvProductos.setItems(listaProductos);
         
