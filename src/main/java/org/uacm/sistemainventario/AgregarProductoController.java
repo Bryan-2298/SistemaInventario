@@ -33,6 +33,7 @@ public class AgregarProductoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         //jdskfdjsfhdjkfhsdjkf
+        //JOJOJKJJ
     }    
 
     @FXML
