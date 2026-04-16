@@ -1,16 +1,47 @@
 package modelo;
 
-public class Producto {
-    
-    private String nombre;
-    private double precio;
+import java.time.LocalDate;
 
-    public Producto() {
+public class Producto {//Inicia clase
+    
+    //Atributos de para los objetos
+    private static int contador = 1;
+    private int id;
+    private String nombre;
+    private Categoria categoria;
+    private double precio;
+    private int cantidad;
+    private LocalDate fecha;
+    
+    //Generamos constructor
+    public Producto(String nombre, Categoria categoria, double precio, int cantidad, LocalDate fecha) {
+        this.id = contador++;
+        this.nombre = nombre;
+        this.categoria = categoria;
+        this.precio = precio;
+        this.cantidad = cantidad;
+        this.fecha = fecha;
+    }
+    
+    //Generamos Getters y Setters
+    public int getId(){
+        return id;
+    }
+    
+    public String getNombre() {
+        return nombre;
     }
 
-    public Producto(String nombre, double precio) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
-        this.precio = precio;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     public double getPrecio() {
@@ -21,17 +52,20 @@ public class Producto {
         this.precio = precio;
     }
 
-    public String getNombre() {
-        return nombre;
+    public int getCantidad() {
+        return cantidad;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
-    @Override
-    public String toString() {
-        return "Producto{" + "nombre=" + nombre + ", precio=" + precio + '}';
+    public LocalDate getFecha() {
+        return fecha;
     }
-    
-}
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+}//Termina clase
