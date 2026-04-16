@@ -10,17 +10,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import modelo.Categoria;
 
 public class AgregarProductoController implements Initializable {
     
     @FXML
     private TextField txtnom;
-    @FXML
-    private TextField txtcategoria;
     @FXML
     private TextField txtprecio;
     @FXML
@@ -31,7 +31,9 @@ public class AgregarProductoController implements Initializable {
     private Button btnAceptar;
     @FXML
     private Button btnCancelar;
-
+    @FXML
+    private ChoiceBox<Categoria> chCategoria;
+    
     @FXML
     private AnchorPane pnlPanelCentral;
     @FXML
@@ -52,9 +54,7 @@ public class AgregarProductoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        //jdskfdjsfhdjkfhsdjkf
-        //JOJOJKJJ
+        chCategoria.getItems().addAll(Categoria.values());
     }    
 
     @FXML
@@ -73,20 +73,19 @@ private void agregarProducto(ActionEvent event) {
     try {
         //Aqui se obtiene los datos
         String nombre = txtnom.getText();
-        String categoria = txtcategoria.getText();
+        Categoria categoria = chCategoria.getValue();
         double precio = Double.parseDouble(txtprecio.getText());
         int cantidad = Integer.parseInt(txtcantidad.getText());
         LocalDate fecha = dpFecha.getValue();
 
         //Validacion para campos vacios
-        if (nombre.isEmpty() || categoria.isEmpty() || fecha == null) {
+       if (nombre.isEmpty() || categoria == null || fecha == null) {
             System.out.println("Faltan datos obligatorios");
             return;
         }
-
         
         txtnom.clear();
-        txtcategoria.clear();
+        chCategoria.setValue(null);
         txtprecio.clear();
         txtcantidad.clear();
         dpFecha.setValue(null);
@@ -99,17 +98,17 @@ private void agregarProducto(ActionEvent event) {
 }
 
 @FXML
-private void aceptarProducto(ActionEvent event) {
+private void aptProducto(ActionEvent event) {
 
     try {
         String nombre = txtnom.getText();
-        String categoria = txtcategoria.getText();
+        Categoria categoria = chCategoria.getValue();
         double precio = Double.parseDouble(txtprecio.getText());
         int cantidad = Integer.parseInt(txtcantidad.getText());
         LocalDate fecha = dpFecha.getValue();
 
          //Validacion para campos vacios
-        if (nombre.isEmpty() || categoria.isEmpty() ||  fecha == null) {
+       if (nombre.isEmpty() || categoria == null || fecha == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Campos vacios");
             alert.setHeaderText(null);
@@ -117,20 +116,27 @@ private void aceptarProducto(ActionEvent event) {
             alert.showAndWait();
             return;
         }
-
-        System.out.println("Producto agregado correctamente.");
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        
+        Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacion.setTitle("Confirmacion.");
+        confirmacion.setHeaderText(null);
+        confirmacion.setContentText("¿Estas seguro que quieres registrar estos datos?");
+        Optional<ButtonType> resultado=confirmacion.showAndWait();
+        if(resultado.isPresent() && resultado.get() == ButtonType.OK){
+             Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Exito");
         alert.setHeaderText(null);
         alert.setContentText("Producto agregado correctamente.");
         alert.showAndWait();
 
         txtnom.clear();
-        txtcategoria.clear();
+        chCategoria.setValue(null);
         txtprecio.clear();
         txtcantidad.clear();
         dpFecha.setValue(null);
+            
+        }
+
 
     } catch (NumberFormatException e) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -142,7 +148,7 @@ private void aceptarProducto(ActionEvent event) {
 }
 
 @FXML
-private void cancelarOperacion(ActionEvent event) {
+private void canceProducto(ActionEvent event) {
 
     Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
     confirmacion.setTitle("Cancelar.");
@@ -154,7 +160,7 @@ private void cancelarOperacion(ActionEvent event) {
     if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
         
         txtnom.clear();
-        txtcategoria.clear();
+        chCategoria.setValue(null);
         txtprecio.clear();
         txtcantidad.clear();
         dpFecha.setValue(null);
