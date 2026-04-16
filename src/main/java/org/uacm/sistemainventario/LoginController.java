@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 
@@ -18,7 +19,7 @@ import javafx.scene.control.PasswordField;
  * @author Tienda
  */
 public class LoginController implements Initializable {
-
+    
     @FXML
     private Button btnIngresar;
     @FXML
@@ -27,6 +28,8 @@ public class LoginController implements Initializable {
     private Button btnPasswordPerdida;
     @FXML
     private PasswordField txtPassword;
+    
+    final static String PASSWORD = "AjoloSoft2026";
 
     /**
      * Initializes the controller class.
@@ -34,31 +37,54 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        //contraseña del programa
+        
     }    
-
+    
     @FXML
     private void iniciarSesion(ActionEvent event) {
         
         try {
-            App.setRoot("MenuPrincipal");
+
+            //Capturar la contraseñas
+            String contrasenia = txtPassword.getText();
+
+            //Condicciones para la validacion a la contraseña
+            if (PASSWORD.equals(contrasenia)) {
+                App.setRoot("MenuPrincipal");
+            } else {
+                Alert alrtInfo = new Alert(Alert.AlertType.ERROR);
+                alrtInfo.setTitle("Sistema");
+                alrtInfo.setHeaderText("CONTRASEÑA INVALIDA");
+                alrtInfo.setContentText("INTENTAR DE NUEVO");
+                alrtInfo.showAndWait();
+            }
+            
         } catch (Exception e) {
             System.out.println("Erroral cargar la pantalla...");
         }
         
     }
-
+    
     @FXML
     private void volverPreLogin(ActionEvent event) {
         
         try {
             App.setRoot("PreLogin");
+            
         } catch (Exception e) {
             System.out.println("Erroral cargar la pantalla...");
         }
     }
-
+    
     @FXML
     private void infoContacto(ActionEvent event) {
+     Alert alrtInfo = new Alert(Alert.AlertType.INFORMATION);
+                alrtInfo.setTitle("Sistema");
+                alrtInfo.setHeaderText("Has perdido la contraseña contactanos: ");
+                alrtInfo.setContentText("Correo: bryan.amador@estudiante.uacm.edu.mx"
+                                + "\nTelefono: 5534008829"
+                                + "\nDirección: Av. del Arbol 12345");
+                alrtInfo.showAndWait();
     }
-    
 }

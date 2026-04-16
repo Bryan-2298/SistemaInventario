@@ -22,6 +22,7 @@ public class PreLoginController implements Initializable {
         
         try {
             App.setRoot("Login");
+            
         } catch (Exception e) {
             System.out.println("Error al cambiar de pantalla...");
         }
