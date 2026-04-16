@@ -10,7 +10,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.uacm.sistemainventario.LoginController">
    <children>
-      <ImageView fitHeight="550.0" fitWidth="1000.0" layoutX="28.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.5;">
+      <ImageView fitHeight="550.0" fitWidth="1000.0" layoutX="36.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.5;">
          <image>
             <Image url="@../../../imagenes/CajaFondo_1.png" />
          </image>
