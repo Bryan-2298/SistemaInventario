@@ -75,7 +75,7 @@
                 <TableColumn fx:id="tvColPrecio" prefWidth="301.0" text="Precio" />
               </columns>
             </TableView>
-            <Button fx:id="btnEliminar" layoutX="566.0" layoutY="468.0" mnemonicParsing="false" onAction="#eliminarProducto" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #EF4444; -fx-background-radius: 20; -fx-cursor: hand;" text="Eliminar" textFill="#f8f8f8">
+            <Button fx:id="btnEliminar" layoutX="566.0" layoutY="468.0" mnemonicParsing="false" onAction="#borrarProducto" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #EF4444; -fx-background-radius: 20; -fx-cursor: hand;" text="Eliminar" textFill="#f8f8f8">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>

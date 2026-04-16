@@ -109,10 +109,23 @@ public class EliminarProductoController implements Initializable {
     @FXML
     private void buscarProducto(ActionEvent event) {
         
-        Alert alrtBusqueda = new Alert(Alert.AlertType.INFORMATION);
-        alrtBusqueda.setTitle("Filtros");
-        alrtBusqueda.setHeaderText("Servira como filtro para la tabla");
-        alrtBusqueda.showAndWait();
+        String buscado = txtBuscar.getText();
+        ObservableList<Producto> listaBusqueda = Inventario.getConexion().filtrarProducto(buscado);
+        tvProductos.setItems(listaBusqueda);
+    }
+
+    @FXML
+    private void borrarProducto(ActionEvent event) {
+        
+        //Realizamos la eliminacion de un producto seleccionado de la tabla
+        Producto productoSeleccionado = tvProductos.getSelectionModel().getSelectedItem();
+        Inventario.getConexion().eliminarProducto(productoSeleccionado.getNombre());
+        
+        //Confirmacion al usuario del producto eliminado
+        Alert exitoDelete = new Alert(Alert.AlertType.CONFIRMATION);
+        exitoDelete.setTitle("Sistema");
+        exitoDelete.setContentText("¡Producto eliminado correctamente!");
+        exitoDelete.showAndWait();
     }
     
 }

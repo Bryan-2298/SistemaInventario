@@ -50,7 +50,8 @@ public class ConsultarProductosController implements Initializable {
         // TODO
         tvColNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
 
-        
+            tvColPrecio.setCellValueFactory(new PropertyValueFactory<>("Precio"));  // ← AGREGA ESTA LÍNEA
+
         tvProductos.setItems(Inventario.getConexion().ConsultarProducto());
     }    
 
@@ -109,16 +110,28 @@ public class ConsultarProductosController implements Initializable {
 
     @FXML
     private void mostrarInformacion(ActionEvent event) {
+
+        Producto productoSeleccionado = tvProductos.getSelectionModel().getSelectedItem();
+
+        if (productoSeleccionado == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Sin selección");
+            alert.setHeaderText(null);
+            alert.setContentText("Primero selecciona un producto de la tabla.");
+            alert.showAndWait();
+            return;
+        }
+
         Alert alrtInfo = new Alert(Alert.AlertType.INFORMATION);
         alrtInfo.setTitle("Información del producto");
-        alrtInfo.setHeaderText("Aqui se abrira otra pantalla para mostrar la incformación");
-        alrtInfo.setContentText("Producto: Chokis"
-                              + "\nPrecio: $24.5"
-                              + "\nStocks: 20"
-                              + "\nCategoria: Galletas");
+        alrtInfo.setHeaderText("Detalles del producto");
+        alrtInfo.setContentText("Producto: " + productoSeleccionado.getNombre()
+                              + "\nCategoría: " + productoSeleccionado.getCategoria()
+                              + "\nPrecio: $" + productoSeleccionado.getPrecio()
+                              + "\nStock: " + productoSeleccionado.getCantidad()
+                              + "\nFecha de ingreso: " + productoSeleccionado.getFecha());
         alrtInfo.showAndWait();
     }
-
 
 
 }
