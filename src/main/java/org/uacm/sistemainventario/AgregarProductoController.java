@@ -17,6 +17,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import modelo.Categoria;
 
+import modelo.Producto;
+import modelo.Inventario;
+
 public class AgregarProductoController implements Initializable {
     
     @FXML
@@ -123,6 +126,12 @@ private void aptProducto(ActionEvent event) {
         confirmacion.setContentText("¿Estas seguro que quieres registrar estos datos?");
         Optional<ButtonType> resultado=confirmacion.showAndWait();
         if(resultado.isPresent() && resultado.get() == ButtonType.OK){
+            
+             // ===== AGREGAR ESTAS 2 LÍNEAS =====
+            Producto nuevoProducto = new Producto(nombre, categoria, precio, cantidad, fecha);
+            Inventario.getConexion().agregarProducto(nuevoProducto);
+            // =================================
+            
              Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Exito");
         alert.setHeaderText(null);
