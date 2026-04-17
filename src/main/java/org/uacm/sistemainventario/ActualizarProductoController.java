@@ -13,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class ActualizarProductoController implements Initializable {
 
-    // 🔗 CONEXIÓN CON FXML
+    //  CONEXIÓN CON FXML
     @FXML
     private TextField txtBuscar, txtNombre, txtCategoria, txtPrecio, txtCantidad;
     @FXML
@@ -36,7 +36,7 @@ public class ActualizarProductoController implements Initializable {
         // Puedes inicializar cosas aquí si quieres
     }
 
-    // 🔍BUSCAR PRODUCTO
+    // BUSCAR PRODUCTO
     @FXML
     private void buscarProducto() {
         String dato = txtBuscar.getText();
@@ -81,7 +81,7 @@ public class ActualizarProductoController implements Initializable {
             double precioNum = Double.parseDouble(precio);
             int cantidadNum = Integer.parseInt(cantidad);
 
-            // 🔴 Aquí irá tu UPDATE a BD después
+            //  Aquí irá tu UPDATE a BD después
             System.out.println("Actualizando producto...");
             System.out.println(nombre + " - " + categoria);
             System.out.println("Precio: " + precioNum);
