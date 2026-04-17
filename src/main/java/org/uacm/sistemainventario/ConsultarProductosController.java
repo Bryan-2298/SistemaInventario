@@ -2,8 +2,6 @@ package org.uacm.sistemainventario;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import modelo.Inventario;
 import modelo.Producto;
 
 public class ConsultarProductosController implements Initializable {
@@ -45,22 +44,15 @@ public class ConsultarProductosController implements Initializable {
     private TableColumn<Producto, Double> tvColPrecio;
     @FXML
     private Button btnInformacion;
-    
-    private ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         tvColNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
-        tvColPrecio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
-        
-        Producto p1 = new Producto("Chokis", 24.5);
-        Producto p2 = new Producto("Coca-Cola", 35.5);
-        
-        listaProductos.add(p1);
-        listaProductos.add(p2);
-        
-        tvProductos.setItems(listaProductos);
+
+            tvColPrecio.setCellValueFactory(new PropertyValueFactory<>("Precio"));  // ← AGREGA ESTA LÍNEA
+
+        tvProductos.setItems(Inventario.getConexion().ConsultarProducto());
     }    
 
     @FXML
@@ -110,7 +102,7 @@ public class ConsultarProductosController implements Initializable {
 
     @FXML
     private void buscarProducto(ActionEvent event) {
-        Alert alrtBusqueda = new Alert(Alert.AlertType.INFORMATION);
+        Alert alrtBusqueda = new Alert(Alert.AlertType.NONE);
         alrtBusqueda.setTitle("Filtros");
         alrtBusqueda.setHeaderText("Servira como filtro para la tabla");
         alrtBusqueda.showAndWait();
@@ -118,12 +110,28 @@ public class ConsultarProductosController implements Initializable {
 
     @FXML
     private void mostrarInformacion(ActionEvent event) {
+
+        Producto productoSeleccionado = tvProductos.getSelectionModel().getSelectedItem();
+
+        if (productoSeleccionado == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Sin selección");
+            alert.setHeaderText(null);
+            alert.setContentText("Primero selecciona un producto de la tabla.");
+            alert.showAndWait();
+            return;
+        }
+
         Alert alrtInfo = new Alert(Alert.AlertType.INFORMATION);
         alrtInfo.setTitle("Información del producto");
-        alrtInfo.setHeaderText("Aqui se abrira otra pantalla para mostrar la incformación");
+        alrtInfo.setHeaderText("Detalles del producto");
+        alrtInfo.setContentText("Producto: " + productoSeleccionado.getNombre()
+                              + "\nCategoría: " + productoSeleccionado.getCategoria()
+                              + "\nPrecio: $" + productoSeleccionado.getPrecio()
+                              + "\nStock: " + productoSeleccionado.getCantidad()
+                              + "\nFecha de ingreso: " + productoSeleccionado.getFecha());
         alrtInfo.showAndWait();
     }
-
 
 
 }
