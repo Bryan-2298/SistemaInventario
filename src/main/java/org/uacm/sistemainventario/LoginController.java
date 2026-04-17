@@ -29,7 +29,7 @@ public class LoginController implements Initializable {
     @FXML
     private PasswordField txtPassword;
     
-    final static String PASSWORD = "AjoloSoft2026";
+    final static String PASSWORD = "123456";
 
     /**
      * Initializes the controller class.
