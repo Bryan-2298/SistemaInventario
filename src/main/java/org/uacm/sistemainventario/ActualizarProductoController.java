@@ -16,7 +16,7 @@ import modelo.Categoria;
 import modelo.Inventario;
 import modelo.Producto;
 
-
+//leer comentarios para dudas
 
 public class ActualizarProductoController implements Initializable {
 // La clase implementa Initializable para poder usar el método initialize()
