@@ -127,12 +127,12 @@ private void aptProducto(ActionEvent event) {
         Optional<ButtonType> resultado=confirmacion.showAndWait();
         if(resultado.isPresent() && resultado.get() == ButtonType.OK){
             
-             // ===== AGREGAR ESTAS 2 LÍNEAS =====
-            Producto nuevoProducto = new Producto(nombre, categoria, precio, cantidad, fecha);
-            Inventario.getConexion().agregarProducto(nuevoProducto);
+        // ===== AGREGe ESTAS 2 LÍNEAS =====
+        Producto nuevoProducto = new Producto(nombre, categoria, precio, cantidad, fecha);
+        Inventario.getConexion().agregarProducto(nuevoProducto);
             // =================================
             
-             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Exito");
         alert.setHeaderText(null);
         alert.setContentText("Producto agregado correctamente.");
