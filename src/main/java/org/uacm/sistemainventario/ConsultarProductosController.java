@@ -121,8 +121,8 @@ public class ConsultarProductosController implements Initializable {
             alert.showAndWait();
             return;
         }
-
-        Alert alrtInfo = new Alert(Alert.AlertType.INFORMATION);
+       
+        Alert alrtInfo = new Alert(Alert.AlertType.CONFIRMATION);
         alrtInfo.setTitle("Información del producto");
         alrtInfo.setHeaderText("Detalles del producto");
         alrtInfo.setContentText("Producto: " + productoSeleccionado.getNombre()
