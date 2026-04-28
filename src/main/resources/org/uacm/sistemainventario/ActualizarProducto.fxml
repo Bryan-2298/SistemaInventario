@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -8,19 +10,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pnlPanelCentral" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.uacm.sistemainventario.ActualizarProductoController">
+<AnchorPane fx:id="pnlPanelCentral" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.uacm.sistemainventario.ActualizarProductoController">
 
    <children>
 
       <!-- HEADER -->
       <AnchorPane prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: #46AAE6; -fx-border-color: black;">
          <children>
-            <Button fx:id="btnCerrarSesion" layoutX="884.0" layoutY="13.0" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #EF4444; -fx-background-radius: 20;" text="Cerrar Sesión" textFill="#f8f8f8">
+            <Button fx:id="btnCerrarSesion" layoutX="884.0" layoutY="13.0" onAction="#volverLogin" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #EF4444; -fx-background-radius: 20;" text="Cerrar Sesión" textFill="#f8f8f8">
                <font>
                   <Font name="Verdana" size="12.0" />
-               </font></Button>
+               </font>
+            </Button>
 
-            <Label layoutX="47.0" layoutY="12.0" text="&lt;Nombre del usuario o nombre de la tienda&gt;">
+            <Label layoutX="47.0" layoutY="12.0" text="Sistema de Inventario - Actualizar Producto">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -31,38 +34,40 @@
       <!-- MENU LATERAL -->
       <AnchorPane layoutY="50.0" prefHeight="550.0" prefWidth="300.0" style="-fx-background-color: #B6E1E0; -fx-border-color: black;">
          <children>
-
             <Button fx:id="btnAgregar" layoutX="91.0" layoutY="281.0" onAction="#agregarProducto" prefWidth="130.0" style="-fx-background-radius: 20; -fx-cursor: hand;" text="Agregar Producto">
                <font>
                   <Font name="System Bold" size="12.0" />
-               </font></Button>
+               </font>
+            </Button>
 
             <Button fx:id="btnActualizar" layoutX="91.0" layoutY="336.0" onAction="#actualizarProducto" prefWidth="130.0" style="-fx-background-radius: 20; -fx-cursor: hand;" text="Actualizar Producto">
                <font>
                   <Font name="System Bold" size="12.0" />
-               </font></Button>
+               </font>
+            </Button>
 
             <Button fx:id="btnEliminar" layoutX="91.0" layoutY="392.0" onAction="#eliminarProducto" prefWidth="130.0" style="-fx-background-radius: 20; -fx-cursor: hand;" text="Eliminar Producto">
                <font>
                   <Font name="System Bold" size="12.0" />
-               </font></Button>
+               </font>
+            </Button>
 
             <Button fx:id="btnConsultar" layoutX="91.0" layoutY="447.0" onAction="#consultarProducto" prefWidth="130.0" style="-fx-background-radius: 20; -fx-cursor: hand;" text="Consultar Stocks">
                <font>
                   <Font name="System Bold" size="12.0" />
-               </font></Button>
+               </font>
+            </Button>
+            
             <ImageView fx:id="imgImagenFondo" fitHeight="223.0" fitWidth="231.0" layoutX="56.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../imagenes/Logotipo.png" />
                </image>
             </ImageView>
-
          </children>
       </AnchorPane>
 
       <!-- PANEL PRINCIPAL -->
       <AnchorPane layoutX="300.0" layoutY="50.0" prefHeight="550.0" prefWidth="700.0" style="-fx-background-color: #e6f4ff; -fx-background-radius: 50;">
-
          <children>
 
             <!-- TITULO -->
@@ -76,44 +81,60 @@
             <Label layoutX="102.0" layoutY="91.0" text="Buscar producto:">
                <font>
                   <Font name="Verdana Bold" size="14.0" />
-               </font></Label>
+               </font>
+            </Label>
 
             <TextField fx:id="txtBuscar" layoutX="243.0" layoutY="86.0" prefHeight="27.0" prefWidth="250.0" />
 
             <Button layoutX="529.0" layoutY="82.0" onAction="#buscarProducto" prefHeight="35.0" prefWidth="70.0" style="-fx-background-radius: 20; -fx-cursor: hand;" text="Buscar">
                <font>
                   <Font name="Verdana Bold" size="12.0" />
-               </font></Button>
-            <TextField fx:id="txtNombre" layoutX="250.0" layoutY="155.0" prefWidth="200.0" />
-            <TextField fx:id="txtCategoria" layoutX="250.0" layoutY="205.0" prefWidth="200.0" />
-            <TextField fx:id="txtPrecio" layoutX="250.0" layoutY="255.0" prefWidth="200.0" />
-            <TextField fx:id="txtCantidad" layoutX="250.0" layoutY="305.0" prefWidth="200.0" />
+               </font>
+            </Button>
+
+            <!-- Campos del formulario -->
+            <Label layoutX="102.0" layoutY="155.0" text="Nombre:">
+               <font>
+                  <Font name="Verdana Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtNombre" layoutX="250.0" layoutY="150.0" prefWidth="200.0" />
+
+            <Label layoutX="102.0" layoutY="205.0" text="Categoría:">
+               <font>
+                  <Font name="Verdana Bold" size="14.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="chCategoria" layoutX="250.0" layoutY="200.0" prefWidth="200.0" />
+
+            <Label layoutX="102.0" layoutY="255.0" text="Precio:">
+               <font>
+                  <Font name="Verdana Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtPrecio" layoutX="250.0" layoutY="250.0" prefWidth="200.0" />
+
+            <Label layoutX="102.0" layoutY="305.0" text="Cantidad:">
+               <font>
+                  <Font name="Verdana Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtCantidad" layoutX="250.0" layoutY="300.0" prefWidth="200.0" />
+
+            <!-- NUEVO: Campo Fecha -->
+            <Label layoutX="102.0" layoutY="355.0" text="Fecha Ingreso:">
+               <font>
+                  <Font name="Verdana Bold" size="14.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="dpFecha" layoutX="250.0" layoutY="350.0" prefWidth="200.0" />
 
             <!-- BOTON ACTUALIZAR -->
-            <Button layoutX="302.0" layoutY="385.0" onAction="#actualizarProducto" prefHeight="35.0" prefWidth="96.0" style="-fx-background-color: #2ECC71; -fx-text-fill: black; -fx-background-radius: 20; -fx-cursor: hand;" text="Actualizar">
+            <Button layoutX="302.0" layoutY="420.0" onAction="#actualizarProducto" prefHeight="35.0" prefWidth="96.0" style="-fx-background-color: #2ECC71; -fx-text-fill: black; -fx-background-radius: 20; -fx-cursor: hand;" text="Actualizar">
                <font>
                   <Font name="Verdana Bold" size="12.0" />
-               </font></Button>
-            <Label layoutX="102.0" layoutY="159.0" text="Nombre:">
-               <font>
-                  <Font name="Verdana Bold" size="14.0" />
                </font>
-            </Label>
-            <Label layoutX="102.0" layoutY="209.0" text="Categoría:">
-               <font>
-                  <Font name="Verdana Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="102.0" layoutY="259.0" text="Precio:">
-               <font>
-                  <Font name="Verdana Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="103.0" layoutY="309.0" text="Cantidad: ">
-               <font>
-                  <Font name="Verdana Bold" size="14.0" />
-               </font>
-            </Label>
+            </Button>
 
          </children>
       </AnchorPane>
