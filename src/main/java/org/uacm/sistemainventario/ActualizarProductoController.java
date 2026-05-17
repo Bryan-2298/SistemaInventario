@@ -1,6 +1,7 @@
 package org.uacm.sistemainventario;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -9,6 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -22,7 +25,14 @@ public class ActualizarProductoController implements Initializable {
 // La clase implementa Initializable para poder usar el método initialize()
 
     @FXML
-    private TextField txtBuscar, txtNombre, txtCategoria, txtPrecio, txtCantidad;
+    private TextField txtBuscar, txtNombre, txtPrecio, txtCantidad;
+    
+    @FXML
+    private ChoiceBox<Categoria>chCategoria; // para categoria
+    
+    @FXML
+    private DatePicker dpFecha; //para la fecha
+    
     @FXML
     private AnchorPane pnlPanelCentral;
     @FXML
@@ -47,6 +57,8 @@ public class ActualizarProductoController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // carga las categorias en el choicebox
+        chCategoria.getItems().addAll(Categoria.values());
         // Inicialización
         // Por ahora no necesita inicializar nada
         // Aquí podrías cargar datos si fuera necesario
@@ -75,9 +87,12 @@ public class ActualizarProductoController implements Initializable {
             // Si se encontró, mostrar sus datos en los campos de texto
 
             txtNombre.setText(productoEncontrado.getNombre());
-            txtCategoria.setText(productoEncontrado.getCategoria().name());
+            chCategoria.setValue(productoEncontrado.getCategoria());//pra check de cstegoria
+            //txtCategoria.setText(productoEncontrado.getCategoria().name());
             txtPrecio.setText(String.valueOf(productoEncontrado.getPrecio()));
             txtCantidad.setText(String.valueOf(productoEncontrado.getCantidad()));
+             dpFecha.setValue(productoEncontrado.getFecha());
+            
             mostrarAlerta("Éxito", "Producto encontrado", Alert.AlertType.INFORMATION);
         } else {
             // Si no se encontro limpiar los campos y mostrar error
@@ -101,12 +116,15 @@ public class ActualizarProductoController implements Initializable {
 
         // Obtener los valores actuales de los campos de texto
         String nombre = txtNombre.getText();
-        String categoriaStr = txtCategoria.getText();
+        Categoria categoria = chCategoria.getValue();
+        //String categoriaStr = txtCategoria.getText();
         String precio = txtPrecio.getText();
         String cantidad = txtCantidad.getText();
+        LocalDate fecha = dpFecha.getValue();
 
         // alidar que ningún campo estevacio
-        if (nombre.isEmpty() || categoriaStr.isEmpty() || precio.isEmpty() || cantidad.isEmpty()) {
+        // Validar campos (nota que ahora validamos fecha != null)
+        if (nombre.isEmpty() || categoria == null || precio.isEmpty() || cantidad.isEmpty() || fecha == null) {
             mostrarAlerta("Error", "Todos los campos son obligatorios", Alert.AlertType.ERROR);
             return;
         }
@@ -116,14 +134,7 @@ public class ActualizarProductoController implements Initializable {
             int cantidadNum = Integer.parseInt(cantidad);
             
             // 5. Convertir la categoría de String a Enum (Categoria)
-            Categoria categoria;
-            try {
-                categoria = Categoria.valueOf(categoriaStr.toUpperCase());
-            } catch (IllegalArgumentException e) {
-                // Si la categoría no es válida, mostrar error con las opciones disponibles
-                mostrarAlerta("Error", "Categoría inválida. Usa: BOTANAS, BEBIDAS, PANADERIA, GALLETAS, DULCERIA", Alert.AlertType.ERROR);
-                return;
-            }
+            
             //Pedir confirmacion al usuario antes de actualizar
             Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
             confirmacion.setTitle("Confirmar");
@@ -138,21 +149,14 @@ public class ActualizarProductoController implements Initializable {
                 // - id del producto a actualizar
                 // - nuevos valores (nombre, categoría, precio, cantidad)
                 // - fecha original (se mantiene)
-                Inventario.getConexion().actualizarProducto(
-                    productoEncontrado.getId(), nombre, categoria, precioNum, cantidadNum, productoEncontrado.getFecha()
-                );
-                
-                mostrarAlerta("¡Buen trabajo jejejeje!", 
-                "Ahora ya sabes cómo actualizar productos en el sistema.\n" +
-                "Recuerda que puedes modificar nombre, categoría, precio y cantidad.", 
-                Alert.AlertType.INFORMATION);
-                
+                Inventario.getConexion().actualizarProducto(productoEncontrado.getId(), nombre, categoria, precioNum, cantidadNum, fecha);
                 
                 mostrarAlerta("Éxito", "Producto actualizado correctamente", Alert.AlertType.INFORMATION);
                 //Limpiar los campos y reiniciar
                 limpiarCampos();
                 productoEncontrado = null;
                 txtBuscar.clear();
+                dpFecha.setValue(null);
             }
 
         } catch (NumberFormatException e) {
@@ -163,9 +167,11 @@ public class ActualizarProductoController implements Initializable {
     // Metodo auxiliar para borrar todos los campos del formulario
     private void limpiarCampos() {
         txtNombre.clear();
-        txtCategoria.clear();
+        chCategoria.setValue(null);
+
         txtPrecio.clear();
         txtCantidad.clear();
+        dpFecha.setValue(null);
     }
     
     
@@ -206,4 +212,23 @@ public class ActualizarProductoController implements Initializable {
             System.out.println("Error al cargar la pantalla...");
         }
     }
+    
+    
+    
+     @FXML
+    private void volverLogin(ActionEvent event) {
+        try {
+            App.setRoot("Login");
+        } catch (Exception e) {
+            System.out.println("Error al cargar la pantalla...");
+        }
+    }
+    
 }
+    
+    
+
+
+
+
+    

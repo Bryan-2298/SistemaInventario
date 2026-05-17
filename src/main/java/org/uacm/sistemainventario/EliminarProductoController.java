@@ -51,6 +51,7 @@ public class EliminarProductoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         tvColNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
+        tvColPrecio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
         
         tvProductos.setItems(Inventario.getConexion().ConsultarProducto());
         
@@ -126,6 +127,8 @@ public class EliminarProductoController implements Initializable {
         exitoDelete.setTitle("Sistema");
         exitoDelete.setContentText("¡Producto eliminado correctamente!");
         exitoDelete.showAndWait();
+        
+        tvProductos.setItems(Inventario.getConexion().ConsultarProducto());
     }
     
 }
