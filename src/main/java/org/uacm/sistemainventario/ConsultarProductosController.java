@@ -2,6 +2,7 @@ package org.uacm.sistemainventario;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,8 +50,7 @@ public class ConsultarProductosController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         tvColNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
-
-            tvColPrecio.setCellValueFactory(new PropertyValueFactory<>("Precio"));  // ← AGREGA ESTA LÍNEA
+        tvColPrecio.setCellValueFactory(new PropertyValueFactory<>("Precio"));  // ← AGREGA ESTA LÍNEA
 
         tvProductos.setItems(Inventario.getConexion().ConsultarProducto());
     }    
@@ -102,10 +102,9 @@ public class ConsultarProductosController implements Initializable {
 
     @FXML
     private void buscarProducto(ActionEvent event) {
-        Alert alrtBusqueda = new Alert(Alert.AlertType.NONE);
-        alrtBusqueda.setTitle("Filtros");
-        alrtBusqueda.setHeaderText("Servira como filtro para la tabla");
-        alrtBusqueda.showAndWait();
+        String buscado = txtBuscar.getText();
+        ObservableList<Producto> listaBusqueda = Inventario.getConexion().filtrarProducto(buscado);
+        tvProductos.setItems(listaBusqueda);
     }
 
     @FXML

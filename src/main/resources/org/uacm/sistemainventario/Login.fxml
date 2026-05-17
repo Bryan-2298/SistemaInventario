@@ -6,43 +6,34 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.uacm.sistemainventario.LoginController">
    <children>
-      <ImageView fitHeight="550.0" fitWidth="1000.0" layoutX="36.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.5;">
+      <ImageView fitHeight="600.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.35;">
          <image>
             <Image url="@../../../imagenes/CajaFondo_1.png" />
          </image>
       </ImageView>
-      <AnchorPane prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: #46AAE6;">
+      <AnchorPane prefHeight="55.0" prefWidth="1000.0" styleClass="header-bar">
          <children>
-            <Label layoutX="442.0" layoutY="13.0" text="Inicia Sesión">
-               <font>
-                  <Font name="Segoe UI Bold" size="20.0" />
-               </font>
-            </Label>
+            <Label layoutX="467.0" layoutY="19.0" styleClass="header-titulo" text="Inicia Sesión" />
          </children>
       </AnchorPane>
-      <Label layoutX="445.0" layoutY="135.0" text="Contraseña:">
-         <font>
-            <Font name="Verdana Bold" size="16.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnIngresar" layoutX="383.0" layoutY="326.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="30.0" prefWidth="97.0" style="-fx-background-radius: 20; -fx-background-color: #2ECC71; -fx-cursor: hand;" text="Ingresar">
-         <font>
-            <Font name="Verdana Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnCancelar" layoutX="531.0" layoutY="328.0" mnemonicParsing="false" onAction="#volverPreLogin" prefHeight="25.0" prefWidth="90.0" style="-fx-background-radius: 20; -fx-background-color: #EF4444; -fx-cursor: hand;" text="Cancelar" textFill="WHITE">
-         <font>
-            <Font name="Verdana Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnPasswordPerdida" layoutX="405.0" layoutY="389.0" mnemonicParsing="false" onAction="#infoContacto" style="-fx-background-color: transparent; -fx-cursor: hand;" text="¿Olvidaste la contraseña?">
-         <font>
-            <Font name="Verdana Bold" size="12.0" />
-         </font></Button>
-      <PasswordField fx:id="txtPassword" layoutX="400.0" layoutY="214.0" prefHeight="25.0" prefWidth="200.0" />
+      <AnchorPane layoutX="350.0" layoutY="110.0" prefHeight="360.0" prefWidth="300.0" styleClass="login-panel">
+         <children>
+            <Label layoutX="120.0" layoutY="107.0" styleClass="login-titulo" text="Bienvenido" />
+            <ImageView fitHeight="100.0" fitWidth="90.0" layoutX="107.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../imagenes/Logotipo.png" />
+               </image>
+            </ImageView>
+            <PasswordField fx:id="txtPassword" layoutX="24.0" layoutY="200.0" prefHeight="34.0" prefWidth="252.0" promptText="Introduce tu contraseña" />
+            <Label layoutX="53.0" layoutY="146.0" styleClass="login-subtitulo" text="Ingresa tu contrasena para continuar" />
+            <Button fx:id="btnPasswordPerdida" layoutX="75.0" layoutY="345.0" mnemonicParsing="false" onAction="#infoContacto" styleClass="btn-link" text="¿Olvidaste la contraseña?" />
+            <Button fx:id="btnIngresar" layoutX="24.0" layoutY="266.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="36.0" prefWidth="252.0" styleClass="btn-primario" text="Ingresar" />
+            <Button fx:id="btnCancelar" layoutX="24.0" layoutY="304.0" mnemonicParsing="false" onAction="#volverPreLogin" prefHeight="32.0" prefWidth="252.0" styleClass="btn-secundario" text="Cancelar" />
+            <Label layoutX="24.0" layoutY="180.0" styleClass="campo-label" text="Contrasena:" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

@@ -16,9 +16,16 @@ public class App extends Application {
     private static Scene scene;
     //private static Stage stage;
 
-    @Override
+ @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("PreLogin"));
+          //Manda a llmar a la hoja de estilos css
+        scene.getStylesheets().add(
+            App.class.getResource("estilos.css").toExternalForm()
+        );
+        
+        stage.setTitle("Sistema de Inventario");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
